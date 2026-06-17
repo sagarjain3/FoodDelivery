@@ -31,6 +31,16 @@ const userSchema = new mongoose.Schema({
 
     },
 
+    resetOtp: {
+        type: String  // otp database me store hoga phele
+    },
+    isOtpVerified: { // fir verify hoga 
+        type: Boolean
+    },
+    otpExpires: {
+        type: Date
+    }
+
 }, { timestamps: true })
 
 const User = mongoose.model("User", userSchema)
