@@ -12,6 +12,7 @@ function ForgotPassword() {
     const [cnfPassword, setCnfPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const [err, setErr] = useState("")
 
     const handleSendOtp = async () => {
         setLoading(true)
@@ -19,11 +20,13 @@ function ForgotPassword() {
             const result = await axios.post(`${serverUrl}/api/auth/send-otp`, { email }, { withCredentials: true })
             console.log(result.data)
             setLoading(false)
+
             setStep(2)
+            setErr("")
 
         } catch (error) {
             setLoading(false)
-            console.log(error)
+            setErr(error?.response?.data?.message)
         }
     }
     const handleVerifyOtp = async () => {
@@ -33,10 +36,11 @@ function ForgotPassword() {
             console.log(result.data)
             setLoading(false)
             setStep(3)
+            setErr("")
 
         } catch (error) {
             setLoading(false)
-            console.log(error)
+            setErr(error?.response?.data?.message)
         }
     }
     const handleResetPassword = async () => {
@@ -49,9 +53,10 @@ function ForgotPassword() {
             console.log(result.data)
             setLoading(false)
             navigate("/login")
+            setErr("")
 
         } catch (error) {
-            console.log(error)
+            setErr(error?.response?.data?.message)
             setLoading(false)
         }
     }
@@ -69,10 +74,12 @@ function ForgotPassword() {
                     <div>
                         <div className='mb-6'>
                             <label htmlFor="email" className='block text-gray-700 font-medium mb-1'>Email</label>
-                            <input type="email" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} value={email} />
+                            <input type="email" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} value={email} required />
                         </div>
 
                         <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleSendOtp}>{loading ? "Loading..." : "Sent OTP"}</button>
+
+                        {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 
                     </div>}
 
@@ -81,10 +88,12 @@ function ForgotPassword() {
                     <div>
                         <div className='mb-6'>
                             <label htmlFor="otp" className='block text-gray-700 font-medium mb-1'>OTP</label>
-                            <input type="otp" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter OTP' onChange={(e) => setOtp(e.target.value)} value={otp} />
+                            <input type="otp" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter OTP' onChange={(e) => setOtp(e.target.value)} value={otp} required />
                         </div>
 
                         <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleVerifyOtp}>{loading ? "Loading..." : "Verify"}</button>
+
+                        {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 
                     </div>}
 
@@ -93,15 +102,17 @@ function ForgotPassword() {
                     <div>
                         <div className='mb-6'>
                             <label htmlFor="newpassword" className='block text-gray-700 font-medium mb-1'>New Password</label>
-                            <input type="password" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter New Password' onChange={(e) => setNewPassword(e.target.value)} value={newPassword} />
+                            <input type="password" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter New Password' onChange={(e) => setNewPassword(e.target.value)} value={newPassword} required />
                         </div>
 
                         <div className='mb-6'>
                             <label htmlFor="cnfpassword" className='block text-gray-700 font-medium mb-1'>Confirm Password</label>
-                            <input type="password" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter Confirm Password' onChange={(e) => setCnfPassword(e.target.value)} value={cnfPassword} />
+                            <input type="password" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter Confirm Password' onChange={(e) => setCnfPassword(e.target.value)} value={cnfPassword} required />
                         </div>
 
                         <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleResetPassword}>{loading ? "Loading..." : "Reset Password"}</button>
+
+                        {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 
                     </div>}
 
