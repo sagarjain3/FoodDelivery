@@ -7,6 +7,7 @@ import axios from 'axios'
 import { serverUrl } from '../App';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from '../../firebase';
+import { ClipLoader } from 'react-spinners'
 function SignUp() {
 
     const primaryColor = "#ff4d2d"
@@ -22,16 +23,21 @@ function SignUp() {
     const [email, setEmail] = useState("")
     const [mobile, setMobile] = useState("")
     const [err, setErr] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const handleSignUp = async () => {
+        setLoading(true)
         try {
             const result = await axios.post(`${serverUrl}/api/auth/signup`, {
                 fullName, email, password, mobile, role
             }, { withCredentials: true })
             console.log(result.data)
+            setLoading(false)
             setErr("")
+
         } catch (error) {
             // console.log(error)
+            setLoading(false)
             setErr(error?.response?.data?.message)
         }
     }
@@ -116,7 +122,7 @@ function SignUp() {
 
 
                 </div>
-                <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleSignUp}>Sign Up</button>
+                <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleSignUp} disabled={loading}>{loading ? <ClipLoader size={20} /> : "Sign Up"}</button>
 
                 {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 

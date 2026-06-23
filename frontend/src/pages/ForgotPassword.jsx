@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../App';
+import { ClipLoader } from 'react-spinners'
 
 function ForgotPassword() {
     const [step, setStep] = useState(1)
@@ -77,7 +78,7 @@ function ForgotPassword() {
                             <input type="email" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} value={email} required />
                         </div>
 
-                        <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleSendOtp}>{loading ? "Loading..." : "Sent OTP"}</button>
+                        <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleSendOtp} disabled={loading}>{loading ? <ClipLoader size={20} /> : "Sent OTP"}</button>
 
                         {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 
@@ -91,7 +92,7 @@ function ForgotPassword() {
                             <input type="otp" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter OTP' onChange={(e) => setOtp(e.target.value)} value={otp} required />
                         </div>
 
-                        <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleVerifyOtp}>{loading ? "Loading..." : "Verify"}</button>
+                        <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' disabled={loading} onClick={handleVerifyOtp}>{loading ? <ClipLoader size={20} /> : "Verify"}</button>
 
                         {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 
@@ -110,7 +111,7 @@ function ForgotPassword() {
                             <input type="password" className='w-full border rounded-lg px-3 py-2 focus:outline-none border-gray-200' placeholder='Enter Confirm Password' onChange={(e) => setCnfPassword(e.target.value)} value={cnfPassword} required />
                         </div>
 
-                        <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' onClick={handleResetPassword}>{loading ? "Loading..." : "Reset Password"}</button>
+                        <button className='w-full font-semibold py-2 rounded-lg transition duration-200 hover:bg-[#e64323] bg-[#ff4d2d] text-white ' disabled={loading} onClick={handleResetPassword}>{loading ? <ClipLoader size={20} /> : "Reset Password"}</button>
 
                         {err && <p className='text-center text-red-500 my-2.5'>*{err}</p>}
 

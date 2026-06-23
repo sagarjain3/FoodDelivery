@@ -3,9 +3,11 @@ import { Route, Routes } from 'react-router-dom'
 import SignUp from './pages/SignUp.jsx'
 import Login from './pages/Login.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
+import useGetCurrnetUser from './hooks/useGetCurrnetUser.jsx'
 export const serverUrl = "http://localhost:8000"
 
 function App() {
+  useGetCurrnetUser()
   return (
     <Routes>
       <Route path='/signup' element={<SignUp />} />
