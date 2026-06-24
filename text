@@ -1,2 +1,3 @@
 agr mail send krna ho toh use krte h nodemailer ka backend me i= npm install nodemailer and mail.js ka code and authcontoller.js wla code likhna h
-google auth k lye frontend me firebase.js bnaanana h and frontend me npm i firebase krna h
+google auth k lye frontend me firebase.js bnaanana h and frontend me npm i firebase krna h\
+location k lye https://myprojects.geoapify.com/projects pr jana h and getcity me code h
