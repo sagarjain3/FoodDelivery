@@ -1,3 +1,9 @@
 agr mail send krna ho toh use krte h nodemailer ka backend me i= npm install nodemailer and mail.js ka code and authcontoller.js wla code likhna h
 google auth k lye frontend me firebase.js bnaanana h and frontend me npm i firebase krna h\
 location k lye https://myprojects.geoapify.com/projects pr jana h and getcity me code h
+
+image ko store krne k lye process
+multer middleware bnaega jisme frontend se image aayega usko store krega
+phr es image ko cloudinary pr bhej dega or cloudinary hume url dega image 
+es url ko db me store kra dege
+package image k lye npm i multer cloudinary
