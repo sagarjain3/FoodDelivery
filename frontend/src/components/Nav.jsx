@@ -7,6 +7,8 @@ import { RxCross2 } from "react-icons/rx";
 import axios from 'axios';
 import { serverUrl } from '../App';
 import { setUserData } from '../redux/userSlice';
+import { CiCirclePlus } from "react-icons/ci";
+import { TbReceiptDollar } from "react-icons/tb";
 function Nav() {
     const { userData, city } = useSelector(state => state.user)
     const [showInfo, setShowInfo] = useState(false)
@@ -29,7 +31,7 @@ function Nav() {
             {/* 
 chote diveces k lye */}
 
-            {showSearch && <div className='w-[90%]  h-15 bg-white shadow-xl rounded-lg flex fixed top-[80px] left-[5%] items-center md:hidden'>
+            {showSearch && userData.role == "user" && <div className='w-[90%]  h-15 bg-white shadow-xl rounded-lg flex fixed top-[80px] left-[5%] items-center md:hidden'>
 
                 {/* Location */}
                 <div className='flex items-center w-[25%] gap-2 px-2 border-r border-gray-300'>
@@ -61,44 +63,77 @@ chote diveces k lye */}
                 Vingo
             </h1>
 
-            {/* Search Box */}
-            <div className='w-[70%] lg:w-[50%] h-15 bg-white shadow-xl rounded-lg hidden md:flex items-center px-4'>
+            {/* search box */}
 
-                {/* Location */}
-                <div className='flex items-center w-[25%] gap-2 px-2 border-r border-gray-300'>
-                    <FaLocationDot size={20} className='text-[#ff4d2d]' />
+            {userData.role == "user" &&
+                <div className='w-[70%] lg:w-[50%] h-15 bg-white shadow-xl rounded-lg hidden md:flex items-center px-4'>
 
-                    <div className='truncate text-gray-600'>
-                        {city}
+                    {/* Location */}
+                    <div className='flex items-center w-[25%] gap-2 px-2 border-r border-gray-300'>
+                        <FaLocationDot size={20} className='text-[#ff4d2d]' />
+
+                        <div className='truncate text-gray-600'>
+                            {city}
+                        </div>
                     </div>
-                </div>
 
-                {/* Search */}
-                <div className='flex items-center flex-1 gap-3 px-4'>
-                    <FaSearch size={18} className='text-[#ff4d2d]' />
+                    {/* Search */}
+                    <div className='flex items-center flex-1 gap-3 px-4'>
+                        <FaSearch size={18} className='text-[#ff4d2d]' />
 
-                    <input
-                        type="text"
-                        placeholder='Search delicious food...'
-                        className='w-full outline-none text-gray-700'
-                    />
-                </div>
+                        <input
+                            type="text"
+                            placeholder='Search delicious food...'
+                            className='w-full outline-none text-gray-700'
+                        />
+                    </div>
 
-            </div>
+                </div>}
+
+
             <div className='flex items-center gap-4'>
-                {showSearch ? <RxCross2 size={18} className='text-[#ff4d2d] md:hidden' onClick={() => setShowSearch(false)} /> : <FaSearch size={18} className='text-[#ff4d2d] md:hidden' onClick={() => setShowSearch(true)} />}
+                {userData.role == "user" && (showSearch ? <RxCross2 size={18} className='text-[#ff4d2d] md:hidden' onClick={() => setShowSearch(false)} /> : <FaSearch size={18} className='text-[#ff4d2d] md:hidden' onClick={() => setShowSearch(true)} />)}
+
+                {userData.role == "owner" ? <>
+                    <button className=' hidden md:flex items-center gap-2 p-1 cursor-pointer rounded-full bg-black text-white'>
+                        <CiCirclePlus size={20} />
+                        <span>Add Food Item</span>
+
+                    </button>
+                    <button className=' md:hidden flex items-center gap-2 p-1 cursor-pointer rounded-full bg-black text-white'>
+                        <CiCirclePlus size={20} />
+
+
+                    </button>
+
+                    <div className=' hidden md:flex items-center gap-2 relative px-3 py-1 cursor-pointer rounded-full bg-[#ff4d2d]/10 text-[#ff4d2d] font-medium '>
+                        <TbReceiptDollar size={20} />
+                        <span>My orders</span>
+                        <span className='absolute -right-2 -top-2 text-xs font-bold text-white bg-[#ff4d2d] rounded-full px-[6px] py-[1px]'>0</span>
+                    </div>
+
+                    <div className=' md:hidden flex items-center gap-2 relative px-3 py-1 cursor-pointer rounded-full bg-[#ff4d2d]/10 text-[#ff4d2d] font-medium '>
+                        <TbReceiptDollar size={20} />
+
+                        <span className='absolute -right-2 -top-2 text-xs font-bold text-white bg-[#ff4d2d] rounded-full px-[6px] py-[1px]'>0</span>
+                    </div>
+
+                </> : (<>
+                    {/* card */}
+                    <div className='relative cursor-pointer'>
+                        <LuShoppingBasket size={25} className='text-[#ff4d2d]' />
+                        <span className='absolute right-[-9px] top-[-12px] text-[#ff4d2d] '>0</span>
+                    </div>
+
+
+                    <button className='hidden md:block px-3 py-1 rounded-lg bg-[#ff4d2d]/10 text-[#ff4d2d] text-sm  font-medium cursor-pointer'>
+                        My Orders
+                    </button>
+                </>)}
 
 
 
-                {/* card */}
-                <div className='relative cursor-pointer'>
-                    <LuShoppingBasket size={25} className='text-[#ff4d2d]' />
-                    <span className='absolute right-[-9px] top-[-12px] text-[#ff4d2d] '>0</span>
-                </div>
 
-                <button className='hidden md:block px-3 py-1 rounded-lg bg-[#ff4d2d]/10 text-[#ff4d2d] text-sm  font-medium cursor-pointer'>
-                    My Orders
-                </button>
 
                 <div className='w-[40px] h-[40px] rounded-full flex items-center justify-center bg-[#ff4d2d] text-white text-[18px] shadow-xl font-semibold cursor-pointer' onClick={() => setShowInfo(prev => !prev)}>
                     {userData?.fullName.slice(0, 1)}
