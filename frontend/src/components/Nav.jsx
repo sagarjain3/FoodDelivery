@@ -11,6 +11,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { TbReceiptDollar } from "react-icons/tb";
 function Nav() {
     const { userData, city } = useSelector(state => state.user)
+    const { myShopData } = useSelector(state => state.owner)
     const [showInfo, setShowInfo] = useState(false)
     const [showSearch, setShowSearch] = useState(false)
     const dispatch = useDispatch()
@@ -95,16 +96,19 @@ chote diveces k lye */}
                 {userData.role == "user" && (showSearch ? <RxCross2 size={18} className='text-[#ff4d2d] md:hidden' onClick={() => setShowSearch(false)} /> : <FaSearch size={18} className='text-[#ff4d2d] md:hidden' onClick={() => setShowSearch(true)} />)}
 
                 {userData.role == "owner" ? <>
-                    <button className=' hidden md:flex items-center gap-2 p-1 cursor-pointer rounded-full bg-black text-white'>
-                        <CiCirclePlus size={20} />
-                        <span>Add Food Item</span>
+                    {myShopData && <>
+                        <button className=' hidden md:flex items-center gap-2 p-1 cursor-pointer rounded-full bg-black text-white'>
+                            <CiCirclePlus size={20} />
+                            <span>Add Food Item</span>
 
-                    </button>
-                    <button className=' md:hidden flex items-center gap-2 p-1 cursor-pointer rounded-full bg-black text-white'>
-                        <CiCirclePlus size={20} />
+                        </button>
+                        <button className=' md:hidden flex items-center gap-2 p-1 cursor-pointer rounded-full bg-black text-white'>
+                            <CiCirclePlus size={20} />
 
 
-                    </button>
+                        </button>
+                    </>}
+
 
                     <div className=' hidden md:flex items-center gap-2 relative px-3 py-1 cursor-pointer rounded-full bg-[#ff4d2d]/10 text-[#ff4d2d] font-medium '>
                         <TbReceiptDollar size={20} />

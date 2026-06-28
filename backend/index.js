@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser'
 import authRouter from './routes/authRoute.js'
 import cors from 'cors'
 import userRouter from './routes/userRoute.js'
+import shopRouter from './routes/shopRoute.js'
+import itemRouter from './routes/itemRoute.js'
 
 
 const app = express()
@@ -19,6 +21,8 @@ app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
+app.use("/api/shop", shopRouter)
+app.use("/api/item", itemRouter)
 
 app.listen(port, () => {
     connectDb()

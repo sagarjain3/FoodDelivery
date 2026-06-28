@@ -1,6 +1,6 @@
-import Item from "../models/itemModel"
-import Shop from "../models/shopModel"
-import uploadOnCloudinary from "../utils/cloudinary"
+import Item from "../models/itemModel.js"
+import Shop from "../models/shopModel.js"
+import uploadOnCloudinary from "../utils/cloudinary.js"
 
 export const addItem = async (req, res) => {
     try {
